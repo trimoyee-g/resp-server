@@ -30,12 +30,26 @@ redis-cli -p 6379 set foo bar
 redis-cli -p 6379 get foo
 ```
 
+If you don't have `redis-cli` installed, use the Docker image instead (see below).
+
 ## Run with Docker
 
 ```bash
 docker build -t resp-server .
 docker run -p 6379:6379 resp-server
 ```
+
+To connect without installing `redis-cli` locally, run it from a Docker container in a separate terminal:
+
+```bash
+# one-off command
+docker run --rm redis:alpine redis-cli -h host.docker.internal -p 6379 PING
+
+# interactive session
+docker run --rm -it redis:alpine redis-cli -h host.docker.internal -p 6379
+```
+
+> On Linux, replace `host.docker.internal` with `172.17.0.1` (the default Docker bridge gateway).
 
 ## Architecture
 
